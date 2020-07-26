@@ -1,0 +1,24 @@
+form {
+    border: 1px solid #545454;
+    border-radius: 3px;
+    padding: 40px;
+}
+
+input {
+    border: 1px solid #545454;
+    font-size: large;
+    padding: 5px 20px;
+    width: 100%;
+    line-height: 16px;
+    margin: 10px 0;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+form .error {
+    color: rgb(199, 15, 15);
+    font-size: 12px;
+    font-weight: bold;
+}
