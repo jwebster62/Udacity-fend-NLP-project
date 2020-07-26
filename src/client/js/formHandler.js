@@ -1,28 +1,22 @@
-const resHead = document.querySelector("#res-head");
-const resCont = document.querySelector("#res");
+import { text } from "body-parser";
 
-export const handleSubmit = (url, loadingBtn, header = resHead, container = resCont) => {
-    return fetch("/sentiment", {
-            method: "POST",
-            credentials: "same-origin",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ url })
-        })
-        .then(res => res.json())
-        .then(({ polarity, subjectivity, text }) => {
-            const polarElem = document.createElement("p");
-            const subjElem = document.createElement("p");
+export async function handleSubmit() {
 
-            polarElem.textContent = `Polarity: ${polarity}`;
-            subjElem.textContent = `Subjectivity: ${subjectivity}`;
+    document.querySelector('form').addEventListener('submit', event => {
+        event.preventDefault()
+        console.log('submit')
+    });
+    const port = process.env.port || 8081;
+    await fetch(`http://localhost:${port}/api`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(text),
+    });
+    const getSentiment = await fetch(`http://localhost:${port}/sentiment`);
+    const sentimentJson = await getSentiment.json();
 
-            header.textContent = "Form Results:";
-            container.innerHTML = `<p>${text}</p>`;
-
-            container.insertAdjacentElement("afterbegin", subjElem);
-            container.insertAdjacentElement("afterbegin", polarElem);
-
-            loadingBtn.value = "submit";
-        })
-        .catch(e => console.error(e));
+    Client.updateUI(sentimentJson)
 };

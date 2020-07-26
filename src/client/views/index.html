@@ -21,22 +21,19 @@
 
     <main>
         <section>
-            <form id="main-form">
+            <form id="main-form" action="#" method="POST">
                 <div>
                     <h1 class="form-heading">Input a url for an article to be processed through the api below:</h1>
-                    <input id="url" type="url" placeholder="Enter URL here..." required>
+                    <input type="text" name="url" id="url" onKeyUp="Client.validate()" placeholder="Enter URL here..." required>
                     <span class="error hidden">
                         Please enter a valid URL.
                     </span>
                 </div>
-                <input type="Submit" name="" value="Submit">
+                <input id="submit" class="submit" type="submit" onClick="Client.handleSubmit()">
             </form>
             <section>
 
-                <section id="results">
-                    <strong id="res-head">RESULTS</strong>
-                    <p id="subj">Subjectivity: <span id="subjectivity"></span></p>
-                </section>
+                <div class="result" id="result"></div>
     </main>
 
     <footer>
