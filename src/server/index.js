@@ -1,18 +1,25 @@
 const express = require('express')
+const cors = require('cors')
 const fetch = require('node-fetch');
+const bodyParser = require('body-parser')
 const { response } = require('express');
 require('dotenv').config();
 
 const app = express()
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('dist'));
 
 const port = process.env.port || 8080;
 
 app.listen(port, () => {
     console.log(`Starting server on port ${port}`);
 });
+// Everything prior to this on the page works
 
-app.use(express.static('dist'));
-app.use(express.json({}));
+
 
 app.get('/api', async(req, res) => {
 

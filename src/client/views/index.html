@@ -11,10 +11,10 @@
 <body>
 
     <header>
-        <div class="">
-            Logo
+        <div class="logo">
+            NLP Udacity Project
         </div>
-        <div class="">
+        <div class="navigation">
             navigation
         </div>
     </header>
@@ -23,7 +23,8 @@
         <section>
             <form id="main-form">
                 <div>
-                    <input id="url" type="text" placeholder="Enter URL here..." required>
+                    <h1 class="form-heading">Input a url for an article to be processed through the api below:</h1>
+                    <input id="url" type="url" placeholder="Enter URL here..." required>
                     <span class="error hidden">
                         Please enter a valid URL.
                     </span>
@@ -32,14 +33,14 @@
             </form>
             <section>
 
-                <section>
-                    <strong id="res-head"></strong>
-                    <div id="res"></div>
+                <section id="results">
+                    <strong id="res-head">RESULTS</strong>
+                    <p id="subj">Subjectivity: <span id="subjectivity"></span></p>
                 </section>
     </main>
 
     <footer>
-        <p>This is a footer</p>
+        <p>Project completed by Joshua Webster.</p>
     </footer>
 
 </body>
