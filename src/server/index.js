@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
-const axios = require("axios")
+const axios = require("axios");
+const { response } = require("express");
 require('dotenv').config();
 
 const app = express()
@@ -18,59 +19,57 @@ const port = process.env.port || 8081;
 app.listen(port, () => {
     console.log(`Starting server on port ${port}`);
 });
-// Everything prior to this on the page works
 
-app.get("/", function(req, res) {
-    res.sendFile("dist/index.html");
-});
 
-let sentiment;
-/*app.get('/api', async(req, res) => {
-    //const apiURL = `https://api.meaningcloud.com/sentiment-2.1?key=${process.env.apiKey}&lang=auto&txt=${getURL}`
-    const apiURL = `https://api.meaningcloud.com/sentiment-2.1?key=${process.env.apiKey}&lang=auto&txt=https://www.independent.co.uk/arts-entertainment/books/wow-an-exclusive-short-story-by-al-kennedy-a6785186.html`
-    const fetch_response = await fetch(apiURL);
-    const json = await fetch_response.json();
-    response.json(json);
-});*/
 app.post("/api", async(req, res) => {
-    try {
-        // calls the api by passing API key, type i.e URL or word and the text which is url or word
-        const result = await axios.post(
-            `http://api.meaningcloud.com/sentiment-2.1?key=${process.env.API_KEY}&lang=en&text=${req.body.url}`
-        );
-
-        // stores the result of the call in data
-        const { data } = result;
-        const { code } = data.status;
-
-        // status code 200 is failed so runs following if not failed
-        if (code !== "200") {
-            // stores the below field in its own variable
-            const { score_tag } = data;
-            const { agreement } = data;
-            const { subjectivity } = data;
-            const { confidence } = data;
-            const { irony } = data;
-
-            // storing the api response
-            sentiment = {
-                score_tag,
-                agreement,
-                subjectivity,
-                confidence,
-                irony,
-            };
-        } else {
-            // if error occurs then change the response to false
-            sentiment = false;
-        }
-        res.end("It worked!");
-    } catch (e) {
-        console.log(`Error = ${e}`);
-    }
+    console.log('I got a request');
+    console.log(req.body);
+    const data = req.body;
+    res.json({
+        status: 'success',
+        URL: data.sendURL
+    });
 });
-// calls the function on get sentiment method
-app.get("/sentiment", (req, res) => {
-    // sends the sentiment variable
-    res.send(sentiment);
+/*await fetch(`http://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&lang=auto&url=`, {
+    method:'POST',
+    body: JSON.stringify(data)
+})
+    .then(response => {
+        console.log(response);
+        return response.json();
+    })
+    .then(json => {
+        console.log(json);
+        document.getElementById('result').innerHTML = json
+    });
+    */
+
+const https = require('follow-redirects').https;
+const fs = require('fs');
+
+const options = {
+    'method': 'POST',
+    'hostname': 'api.meaningcloud.com',
+    'path': `/sentiment-2.1?key=a61e1677e6deb8dba178e66a9a9ae65b&lang=auto&url=https://www.facebook.com`,
+    'headers': {},
+    'maxRedirects': 20
+};
+
+const req = https.request(options, function(res) {
+    const chunks = [];
+
+    res.on("data", function(chunk) {
+        chunks.push(chunk);
+    });
+
+    res.on("end", function(chunk) {
+        const body = Buffer.concat(chunks);
+        console.log(body.toString());
+    });
+
+    res.on("error", function(error) {
+        console.error(error);
+    });
 });
+
+req.end();
