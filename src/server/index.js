@@ -45,7 +45,7 @@ app.post("/api", async(req, res) => {
         };
 
         const req = https.request(options, function(res) {
-            let chunks = [];
+            let chunks = '';
 
             res.on("data", function(chunk) {
                 chunks.push(chunk);
@@ -53,7 +53,13 @@ app.post("/api", async(req, res) => {
 
             res.on("end", function(chunk) {
                 const body = Buffer.concat(chunks);
-                console.log(body.toString());
+                const sentiment = body.toString()
+                const parsedSentiment = JSON.parse(sentiment).then()
+                console.log(`Agreement: ${parsedSentiment.agreement}`)
+                console.log(`Subjectivity: ${parsedSentiment.subjectivity}`)
+                console.log(`Confidence: ${parsedSentiment.confidence}`)
+                    //console.log(body.toString());
+
             });
 
             res.on("error", function(error) {
@@ -66,3 +72,7 @@ app.post("/api", async(req, res) => {
         res.end()
     };
 });
+
+app.get("/update", async(req, res) => {
+    const sentiment
+})
