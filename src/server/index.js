@@ -52,7 +52,7 @@ app.post("/api", async(req, res) => {
             });
 
             res.on("end", function(chunk) {
-                var body = Buffer.concat(chunks);
+                const body = Buffer.concat(chunks);
                 console.log(body.toString());
             });
 
