@@ -28,19 +28,18 @@ app.post("/api", async(req, res) => {
     console.log('I got a request');
     console.log(req.body);
     const data = req.body;
-    console.log(`Test: ${data}`)
     res.json({
         status: 'success',
         URL: data.sendURL
     });
 
 
-    /*if (req.method === 'POST') {
+    if (req.method === 'POST') {
 
         const options = {
             'method': 'POST',
             'hostname': 'api.meaningcloud.com',
-            'path': `/sentiment-2.1?key=${apiKey}&lang=auto&url=${data}`,
+            'path': '/sentiment-2.1?key=' + apiKey + '&lang=auto&url=' + data.sendURL,
             'headers': {},
             'maxRedirects': 20
         };
@@ -66,5 +65,4 @@ app.post("/api", async(req, res) => {
     } else {
         res.end()
     };
-*/
 });
