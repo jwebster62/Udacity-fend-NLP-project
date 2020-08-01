@@ -8,7 +8,7 @@ require('dotenv').config();
 const https = require('follow-redirects').https;
 const fs = require('fs');
 const apiKey = process.env.API_KEY
-const sentiment = [];
+
 
 const app = express()
 app.use(cors());
@@ -54,11 +54,12 @@ app.post("/api", async(req, res) => {
             res.on("end", function(chunk) {
                 const body = Buffer.concat(chunks);
                 const sentiment = body.toString()
-                const parsedSentiment = JSON.parse(sentiment).then()
+                const parsedSentiment = JSON.parse(sentiment)
                 console.log(`Agreement: ${parsedSentiment.agreement}`)
                 console.log(`Subjectivity: ${parsedSentiment.subjectivity}`)
                 console.log(`Confidence: ${parsedSentiment.confidence}`)
-                    //console.log(body.toString());
+
+                //console.log(body.toString());
 
             });
 
@@ -72,7 +73,3 @@ app.post("/api", async(req, res) => {
         res.end()
     };
 });
-
-app.get("/update", async(req, res) => {
-    const sentiment
-})
