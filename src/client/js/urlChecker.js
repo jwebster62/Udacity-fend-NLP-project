@@ -1,3 +1,20 @@
+export function validateUrl() {
+    let regex = new RegExp(
+        "^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"
+    );
+
+
+
+
+    if (regex.test(url)) {
+        return false;
+    } else {
+        return "Invalid url!!! URL should look similiar to www.example.com";
+    }
+
+};
+
+
 export function validate() {
     const url = document.getElementById("url").value;
     const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -13,4 +30,4 @@ export function validate() {
         document.querySelector(".hidden").style.visibility = "visible"
         return false;
     }
-};
+}

@@ -22,7 +22,7 @@ const port = process.env.port || 8081;
 app.listen(port, () => {
     console.log(`Starting server on port ${port}`);
 });
-
+let projectData = [];
 
 app.post("/api", async(req, res) => {
     console.log('I got a request');
@@ -45,7 +45,7 @@ app.post("/api", async(req, res) => {
         };
 
         const req = https.request(options, function(res) {
-            let chunks = '';
+            let chunks = [];
 
             res.on("data", function(chunk) {
                 chunks.push(chunk);
@@ -53,11 +53,20 @@ app.post("/api", async(req, res) => {
 
             res.on("end", function(chunk) {
                 const body = Buffer.concat(chunks);
-                const sentiment = body.toString()
-                const parsedSentiment = JSON.parse(sentiment)
-                console.log(`Agreement: ${parsedSentiment.agreement}`)
-                console.log(`Subjectivity: ${parsedSentiment.subjectivity}`)
-                console.log(`Confidence: ${parsedSentiment.confidence}`)
+                const sentiment = body.toString();
+                const parsedSentiment = JSON.parse(sentiment);
+                const agree = parsedSentiment.agreement;
+                const subj = parsedSentiment.subjectivity;
+                const conf = parsedSentiment.confidence;
+
+                console.log(`Agreement: ${parsedSentiment.agreement}`);
+                console.log(`Subjectivity: ${parsedSentiment.subjectivity}`);
+                console.log(`Confidence: ${parsedSentiment.confidence}`);
+
+                projectData = { sentiment };
+
+
+                console.log(projectData);
 
                 //console.log(body.toString());
 
@@ -72,4 +81,8 @@ app.post("/api", async(req, res) => {
     } else {
         res.end()
     };
+});
+
+app.get("/sentiment", (req, res) => {
+    res.send(projectData);
 });
