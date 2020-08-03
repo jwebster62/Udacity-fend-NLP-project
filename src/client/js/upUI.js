@@ -5,23 +5,20 @@ export function updateUI(result) {
         const parsedRes = JSON.parse(stringy);
         console.log("We have a winner");
         console.log(parsedRes);
-        const agreement = parsedRes.agreement;
-        resDomLocation.innerText = `${agreement}`;
-
-        /*`
+        resDomLocation.innerHTML = `
         <div class="container">
-            <div><h3>Agreement</h3>:${parsedRes.agreement
+            <div><h3>Agreement</h3>:${parsedRes.agree
                 .charAt(0)
-                .toUpperCase()}${parsedRes.agreement.slice(1).toLowerCase()}</div>
-            <div><h3>Confidence</h3>: ${parsedRes.confidence}</div>
+                .toUpperCase()}${parsedRes.agree.slice(1).toLowerCase()}</div>
+            <div><h3>Confidence</h3>: ${parsedRes.conf}</div>
             
-            <div><h3>Subjectivity</h3>: ${parsedRes.subjectivity
+            <div><h3>Subjectivity</h3>: ${parsedRes.subj
                 .charAt(0)
-                .toUpperCase()}${parsedRes.subjectivity
+                .toUpperCase()}${parsedRes.subj
             .slice(1)
             .toLowerCase()}</div>
         </div>
-            `;*/
+            `;
     };
 
 };
