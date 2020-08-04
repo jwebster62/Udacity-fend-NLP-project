@@ -59,9 +59,9 @@ app.post("/api", async(req, res) => {
                 const subj = parsedSentiment.subjectivity;
                 const conf = parsedSentiment.confidence;
 
-                console.log(`Agreement: ${parsedSentiment.agreement}`);
-                console.log(`Subjectivity: ${parsedSentiment.subjectivity}`);
-                console.log(`Confidence: ${parsedSentiment.confidence}`);
+                console.log(`Agreement: ${agree}`);
+                console.log(`Subjectivity: ${subj}`);
+                console.log(`Confidence: ${conf}`);
 
                 projectData = {
                     agree,
@@ -70,7 +70,7 @@ app.post("/api", async(req, res) => {
                 };
 
 
-                console.log(projectData);
+                //console.log(projectData);
 
                 //console.log(body.toString());
 

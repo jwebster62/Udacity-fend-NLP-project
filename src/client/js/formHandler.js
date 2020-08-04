@@ -16,26 +16,11 @@ export async function handleSubmit() {
     });
 
     const freeFood = await fetch(`http://localhost:${port}/sentiment`);
-    /* .then(function(response) {
-            if (response.status !== 200) {
-                console.log("ERROR! Status Code:" + response.status);
-                return;
-            }
-            response.json()
-                .then(function(data) {
 
-                    console.log(data);
-                });
-        })
-
-    .catch(function(err) {
-        console.error('Fetch Error', err);
-    });
-
-*/
     const freeFoodJson = await freeFood.json();
+    console.log(freeFoodJson);
 
     console.log(serverResponse.json());
 
-    Client.updateUI(freeFoodJson)
+    Client.updateUI(freeFoodJson);
 };
